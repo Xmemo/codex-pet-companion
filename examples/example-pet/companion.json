@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "petId": "geometric-placeholder",
+  "render": {
+    "smallWidth": 84,
+    "restWidth": 360,
+    "anchor": "pet-bottom-center",
+    "interpolation": "nearest"
+  },
+  "clips": {
+    "enter": {
+      "frames": ["frames/enter/diamond-1.png", "frames/enter/diamond-2.png", "frames/enter/diamond-3.png", "frames/enter/diamond-4.png"],
+      "fps": 10,
+      "loop": false
+    },
+    "rest": {
+      "frames": ["frames/rest/circle-1.png", "frames/rest/circle-2.png", "frames/rest/circle-3.png", "frames/rest/circle-4.png", "frames/rest/circle-5.png", "frames/rest/circle-6.png", "frames/rest/circle-7.png", "frames/rest/circle-8.png"],
+      "fps": 8,
+      "loop": true
+    },
+    "exit": {
+      "frames": ["frames/exit/diamond-4.png", "frames/exit/diamond-3.png", "frames/exit/diamond-2.png", "frames/exit/diamond-1.png"],
+      "fps": 12,
+      "loop": false
+    }
+  }
+}

@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+dist/
+build/
+*.egg-info/
+
+# Node
+node_modules/
+*.log
+
+# Runtime products
+*.pid
+*.sock
+evidence/
+pet-run/
+companion-build/
+private-assets/
+
+# Build artifacts
+*.dSYM/
+companion_renderer
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db

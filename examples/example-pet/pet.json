@@ -1,0 +1,6 @@
+{
+  "id": "geometric-placeholder",
+  "displayName": "Geometric Placeholder",
+  "description": "An original geometric pixel-art placeholder pet for testing the companion animation engine.",
+  "spritesheetPath": "spritesheet.png"
+}
