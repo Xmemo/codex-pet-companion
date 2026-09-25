@@ -10,7 +10,7 @@ This is an agent-facing execution contract for AI agents (e.g., Codex) executing
 
 ## Execution Workflow
 1. **Download Pinned Bootstrap**: Download `scripts/bootstrap.sh` *only* from the pinned `v0.1.0` tag over strict HTTPS:
-   `https://raw.githubusercontent.com/Xmemo/codex-pet-companion/v0.1.0/scripts/bootstrap.sh`
+   `https://raw.githubusercontent.com/Xmemo/codex-pet-pomodoro/v0.1.0/scripts/bootstrap.sh`
 2. **Run Pinned Bootstrap**: Execute the downloaded bootstrap script using `/bin/zsh` with the argument `v0.1.0`:
    `/bin/zsh bootstrap.sh v0.1.0`
 3. **Report Status**: Confirm and report the status of both health checks:

@@ -63,7 +63,7 @@ if [ "${CODEX_BOOTSTRAP_TEST:-0}" = "1" ]; then
     COMPANION_BIN="${CODEX_TEST_COMPANION_BIN:-$HOME/.local/bin/codex-pet-companion}"
 else
     # Production mode: No overrides allowed, enforce strict URLs and paths
-    URL_BASE="https://github.com/Xmemo/codex-pet-companion/releases/download/$VERSION"
+    URL_BASE="https://github.com/Xmemo/codex-pet-pomodoro/releases/download/$VERSION"
     CURL_BIN="/usr/bin/curl"
     TAR_BIN="/usr/bin/tar"
     SHASUM_BIN="/usr/bin/shasum"

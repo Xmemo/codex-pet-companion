@@ -1,7 +1,7 @@
 # Pet Pomodoro
 
-[![GitHub License](https://img.shields.io/github/license/Xmemo/codex-pet-companion)](LICENSE)
-[![GitHub Releases](https://img.shields.io/github/v/release/Xmemo/codex-pet-companion)](https://github.com/Xmemo/codex-pet-companion/releases)
+[![GitHub License](https://img.shields.io/github/license/Xmemo/codex-pet-pomodoro)](LICENSE)
+[![GitHub Releases](https://img.shields.io/github/v/release/Xmemo/codex-pet-pomodoro)](https://github.com/Xmemo/codex-pet-pomodoro/releases)
 
 [简体中文](README.zh-CN.md) | English
 
@@ -113,7 +113,7 @@ Preview loads pets from the normal Codex pet directory. The bundled `examples/ex
 
 To install via Codex, copy the following instruction and paste it directly into your Codex agent:
 
-> Install Pet Pomodoro using the contract in [INSTALL_WITH_CODEX.md](INSTALL_WITH_CODEX.md) from the repository at https://github.com/Xmemo/codex-pet-companion, running `scripts/bootstrap.sh` pinned at version `v0.1.0` with strict SHA256 checksum verification, ensuring no modification to `ChatGPT.app` or `Codex.app`, and reporting both `ultradian` and `codex-pet-companion` status reports.
+> Install Pet Pomodoro using the contract in [INSTALL_WITH_CODEX.md](INSTALL_WITH_CODEX.md) from the repository at https://github.com/Xmemo/codex-pet-pomodoro, running `scripts/bootstrap.sh` pinned at version `v0.1.0` with strict SHA256 checksum verification, ensuring no modification to `ChatGPT.app` or `Codex.app`, and reporting both `ultradian` and `codex-pet-companion` status reports.
 
 *Note: Codex may request network and filesystem approval permissions during the installation process.*
 
