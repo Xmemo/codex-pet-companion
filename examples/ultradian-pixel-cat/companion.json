@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "petId": "ultradian-pixel-cat",
+  "render": {
+    "restHeightRatio": 0.72,
+    "interpolation": "nearest"
+  },
+  "clips": {
+    "rest": {
+      "atlasFrames": [
+        { "row": 5, "column": 2 },
+        { "row": 5, "column": 3 },
+        { "row": 5, "column": 4 },
+        { "row": 5, "column": 5 },
+        { "row": 5, "column": 4 },
+        { "row": 5, "column": 3 }
+      ],
+      "fps": 2,
+      "loop": true
+    }
+  }
+}
