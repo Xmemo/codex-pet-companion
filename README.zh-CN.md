@@ -1,13 +1,30 @@
 # Pet Pomodoro
 
-[![GitHub License](https://img.shields.io/github/license/Xmemo/codex-pet-companion)](LICENSE)
-[![GitHub Releases](https://img.shields.io/github/v/release/Xmemo/codex-pet-companion)](https://github.com/Xmemo/codex-pet-companion/releases)
+[![GitHub License](https://img.shields.io/github/license/Xmemo/codex-pet-pomodoro)](LICENSE)
+[![GitHub Releases](https://img.shields.io/github/v/release/Xmemo/codex-pet-pomodoro)](https://github.com/Xmemo/codex-pet-pomodoro/releases)
 
 [English](README.md) | 简体中文
 
 **Human Life × 超昼夜节律 × 番茄钟，与 Codex 电子宠物一起**
 
 一款受 Huberman Lab 超昼夜节律讨论启发的 macOS 番茄钟。专注时，它贴着 Codex 电子宠物安静计时；该休息时，同一只宠物放大，以平静的待机姿态给工作一个明显的“暂停”信号。
+
+## 产品体验
+
+<p align="center">
+  <img src="docs/images/pet-pomodoro-companion-panel.png" alt="番茄钟与 Codex 电子宠物组合在同一个紧凑面板中" width="100%">
+  <br><em>让计时器与电子宠物保持在一起，成为一个专注伙伴。</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/pet-pomodoro-focus-controls.png" alt="电子宠物旁展示 25、50、90 分钟选项和播放控制" width="100%">
+  <br><em>在宠物旁选择 25、50 或 90 分钟节奏，并控制计时。</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/pet-pomodoro-rest-takeover.png" alt="进入恢复阶段时，电子宠物放大并保持安静状态" width="100%">
+  <br><em>到达恢复节点，宠物放大陪伴休息。</em>
+</p>
 
 > [!WARNING]
 > **非官方免责声明**：本项目是独立的社区工具，与 OpenAI 无关联，也未获得其认可。本项目不捆绑 OpenAI 徽标或官方宠物资产。

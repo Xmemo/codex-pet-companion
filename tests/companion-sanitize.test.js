@@ -28,6 +28,11 @@ const SKIPPED_DIRECTORIES = new Set([
   'private-assets',
 ]);
 const IMAGE_EXTENSIONS = new Set(['.png', '.webp']);
+const ALLOWED_DOCUMENTATION_IMAGES = new Set([
+  'docs/images/pet-pomodoro-companion-panel.png',
+  'docs/images/pet-pomodoro-focus-controls.png',
+  'docs/images/pet-pomodoro-rest-takeover.png',
+]);
 const textDecoder = new TextDecoder('utf-8', { fatal: true });
 
 function isSkippedDirectory(entryName) {
@@ -107,10 +112,11 @@ test('release-sanitize: strict zero-exception candidate gate', async (t) => {
     const exampleRasterAssets = [];
     for (const file of files) {
       if (!IMAGE_EXTENSIONS.has(path.extname(file).toLowerCase())) continue;
-      if (!isAllowedExampleImage(repoRoot, file)) {
-        failures.push(path.relative(repoRoot, file).split(path.sep).join('/'));
-      } else {
+      const relativePath = path.relative(repoRoot, file).split(path.sep).join('/');
+      if (isAllowedExampleImage(repoRoot, file)) {
         exampleRasterAssets.push(file);
+      } else if (!ALLOWED_DOCUMENTATION_IMAGES.has(relativePath)) {
+        failures.push(relativePath);
       }
     }
     assert.deepStrictEqual(failures, []);
