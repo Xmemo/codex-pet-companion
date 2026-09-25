@@ -8,7 +8,7 @@ Security fixes target the current `main` branch and the latest published release
 
 Please do **not** disclose security vulnerabilities through public issues or comments.
 
-Use GitHub Private Vulnerability Reporting for `Xmemo/codex-pet-companion` when available:
+Use GitHub Private Vulnerability Reporting for `Xmemo/codex-pet-pomodoro` when available:
 
 1. Open the repository's **Security** tab.
 2. Open **Advisories** / **Report a vulnerability**.

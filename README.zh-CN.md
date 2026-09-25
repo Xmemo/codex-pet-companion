@@ -1,7 +1,7 @@
 # Pet Pomodoro
 
-[![GitHub License](https://img.shields.io/github/license/Xmemo/codex-pet-companion)](LICENSE)
-[![GitHub Releases](https://img.shields.io/github/v/release/Xmemo/codex-pet-companion)](https://github.com/Xmemo/codex-pet-companion/releases)
+[![GitHub License](https://img.shields.io/github/license/Xmemo/codex-pet-pomodoro)](LICENSE)
+[![GitHub Releases](https://img.shields.io/github/v/release/Xmemo/codex-pet-pomodoro)](https://github.com/Xmemo/codex-pet-pomodoro/releases)
 
 [English](README.md) | 简体中文
 
@@ -113,7 +113,7 @@ codex-pet-companion preview --pet example-pet --state rest
 
 如需通过 Codex 安装，请将以下单行指令复制并粘贴到您的 Codex 代理（Agent）中：
 
-> 根据 https://github.com/Xmemo/codex-pet-companion 仓库中的 [INSTALL_WITH_CODEX.md](INSTALL_WITH_CODEX.md) 契约安装 Pet Pomodoro，运行锁定在 `v0.1.0` 版本的 `scripts/bootstrap.sh` 并进行严格的 SHA256 校验，确保不修改 `ChatGPT.app` 或 `Codex.app`，并汇报 `ultradian` 和 `codex-pet-companion` 的状态报告。
+> 根据 https://github.com/Xmemo/codex-pet-pomodoro 仓库中的 [INSTALL_WITH_CODEX.md](INSTALL_WITH_CODEX.md) 契约安装 Pet Pomodoro，运行锁定在 `v0.1.0` 版本的 `scripts/bootstrap.sh` 并进行严格的 SHA256 校验，确保不修改 `ChatGPT.app` 或 `Codex.app`，并汇报 `ultradian` 和 `codex-pet-companion` 的状态报告。
 
 *注意：在安装过程中，Codex 可能会向您请求网络和文件系统的访问权限审批。*
 

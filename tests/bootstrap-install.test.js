@@ -190,7 +190,7 @@ chmod +x "$HOME/.local/bin/codex-pet-companion"
     CURL_BIN: env.fakeCurlPath,
     TAR_BIN: env.fakeTarPath,
     TEST_FIXTURES_DIR: env.fixturesDir,
-    CODEX_RELEASE_URL_BASE: `http://fakegithub.com/Xmemo/codex-pet-companion/releases/download/${versionArg || version}`,
+    CODEX_RELEASE_URL_BASE: `http://fakegithub.com/Xmemo/codex-pet-pomodoro/releases/download/${versionArg || version}`,
     CODEX_BOOTSTRAP_TEST: '1',
     ...testEnvOverrides
   };
@@ -304,7 +304,7 @@ test('bootstrap rejects invalid non-absolute executable override in test mode', 
       ...process.env,
       HOME: env.fakeHome,
       CURL_BIN: 'relative-curl',
-      CODEX_RELEASE_URL_BASE: 'http://fakegithub.com/Xmemo/codex-pet-companion/releases/download/v0.1.0',
+      CODEX_RELEASE_URL_BASE: 'http://fakegithub.com/Xmemo/codex-pet-pomodoro/releases/download/v0.1.0',
       CODEX_BOOTSTRAP_TEST: '1'
     },
     encoding: 'utf8'
@@ -322,7 +322,7 @@ test('bootstrap rejects command-plus-arguments string override in test mode', ()
       ...process.env,
       HOME: env.fakeHome,
       CURL_BIN: '/usr/bin/curl --silent',
-      CODEX_RELEASE_URL_BASE: 'http://fakegithub.com/Xmemo/codex-pet-companion/releases/download/v0.1.0',
+      CODEX_RELEASE_URL_BASE: 'http://fakegithub.com/Xmemo/codex-pet-pomodoro/releases/download/v0.1.0',
       CODEX_BOOTSTRAP_TEST: '1'
     },
     encoding: 'utf8'

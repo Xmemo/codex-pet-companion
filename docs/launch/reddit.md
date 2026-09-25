@@ -37,6 +37,6 @@ The repository and release do not include OpenAI logos, extracted built-in pet s
 
 This is an independent, unofficial community project and is not affiliated with or endorsed by OpenAI.
 
-GitHub: https://github.com/Xmemo/codex-pet-companion
+GitHub: https://github.com/Xmemo/codex-pet-pomodoro
 
 Feedback on installer reliability, pet compatibility, and the fullscreen rest interaction would be useful.

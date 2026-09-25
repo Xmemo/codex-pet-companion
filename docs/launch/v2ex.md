@@ -35,6 +35,6 @@
 
 这是独立、非官方社区项目，与 OpenAI 没有隶属或背书关系。仓库和 Release 不包含 OpenAI Logo、提取后的 Codex 内置宠物图集或其他专有资产。
 
-GitHub：https://github.com/Xmemo/codex-pet-companion
+GitHub：https://github.com/Xmemo/codex-pet-pomodoro
 
 我尤其想了解三类反馈：安装是否顺畅、哪些默认/自定义宠物兼容、全屏休息提示是否真的能让人离开当前任务。
