@@ -1,13 +1,30 @@
 # Pet Pomodoro
 
-[![GitHub License](https://img.shields.io/github/license/Xmemo/codex-pet-companion)](LICENSE)
-[![GitHub Releases](https://img.shields.io/github/v/release/Xmemo/codex-pet-companion)](https://github.com/Xmemo/codex-pet-companion/releases)
+[![GitHub License](https://img.shields.io/github/license/Xmemo/codex-pet-pomodoro)](LICENSE)
+[![GitHub Releases](https://img.shields.io/github/v/release/Xmemo/codex-pet-pomodoro)](https://github.com/Xmemo/codex-pet-pomodoro/releases)
 
 [简体中文](README.zh-CN.md) | English
 
 **Human Life × Ultradian Rhythm × Pomodoro, with your Codex pet**
 
 A research-informed Pomodoro timer for macOS, inspired by Huberman Lab's discussion of ultradian rhythms. It lives beside your Codex pet during focus and turns that same pet into a prominent, calm break cue when it is time to pause.
+
+## See Pet Pomodoro in Action
+
+<p align="center">
+  <img src="docs/images/pet-pomodoro-companion-panel.png" alt="Pet Pomodoro brings the timer and Codex pet together in one compact companion panel" width="100%">
+  <br><em>The timer and pet stay visually connected as one companion.</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/pet-pomodoro-focus-controls.png" alt="25, 50, and 90 minute timer choices and playback controls beside the Codex pet" width="100%">
+  <br><em>Choose a 25, 50, or 90 minute focus rhythm beside your pet.</em>
+</p>
+
+<p align="center">
+  <img src="docs/images/pet-pomodoro-rest-takeover.png" alt="The pet expands into a calm, enlarged rest state while the timer remains visible" width="100%">
+  <br><em>At the recovery boundary, the pet grows into a calm, enlarged presence.</em>
+</p>
 
 > [!WARNING]
 > **Unofficial Disclaimer**: This project is an independent community tool. It is **not** affiliated with or endorsed by OpenAI. It does not bundle OpenAI logos or proprietary pet assets.
