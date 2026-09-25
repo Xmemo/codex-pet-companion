@@ -17,12 +17,12 @@ A research-informed Pomodoro timer for macOS, inspired by Huberman Lab's discuss
 </p>
 
 <p align="center">
-  <img src="docs/images/pet-pomodoro-focus-controls.png" alt="25, 50, and 90 minute timer choices and playback controls beside the Codex pet" width="100%">
+  <img src="docs/images/pet-pomodoro-rest-takeover.png" alt="25, 50, and 90 minute choices and playback controls in the companion panel beside the Codex pet" width="100%">
   <br><em>Choose a 25, 50, or 90 minute focus rhythm beside your pet.</em>
 </p>
 
 <p align="center">
-  <img src="docs/images/pet-pomodoro-rest-takeover.png" alt="The pet expands into a calm, enlarged rest state while the timer remains visible" width="100%">
+  <img src="docs/images/pet-pomodoro-focus-controls.png" alt="The Codex pet expands across the screen during rest while the compact timer remains nearby" width="100%">
   <br><em>At the recovery boundary, the pet grows into a calm, enlarged presence.</em>
 </p>
 

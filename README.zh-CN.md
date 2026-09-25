@@ -17,12 +17,12 @@
 </p>
 
 <p align="center">
-  <img src="docs/images/pet-pomodoro-focus-controls.png" alt="电子宠物旁展示 25、50、90 分钟选项和播放控制" width="100%">
+  <img src="docs/images/pet-pomodoro-rest-takeover.png" alt="Codex 电子宠物旁的面板清晰展示 25、50、90 分钟选项和播放控制" width="100%">
   <br><em>在宠物旁选择 25、50 或 90 分钟节奏，并控制计时。</em>
 </p>
 
 <p align="center">
-  <img src="docs/images/pet-pomodoro-rest-takeover.png" alt="进入恢复阶段时，电子宠物放大并保持安静状态" width="100%">
+  <img src="docs/images/pet-pomodoro-focus-controls.png" alt="进入休息时，Codex 电子宠物放大占据屏幕，紧凑计时器仍显示在旁边" width="100%">
   <br><em>到达恢复节点，宠物放大陪伴休息。</em>
 </p>
 
