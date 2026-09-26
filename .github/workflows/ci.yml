@@ -47,7 +47,7 @@ jobs:
         run: xcrun swiftc -typecheck src/companion_renderer.swift src/timer_panel.swift
 
       - name: Lint shell scripts
-        run: zsh -n scripts/install.sh scripts/uninstall.sh
+        run: zsh -n scripts/install.sh scripts/uninstall.sh scripts/bootstrap.sh scripts/package-release.sh
 
       - name: Lint LaunchAgent plists
         run: plutil -lint packaging/io.github.codex-ultradian-rhythm.plist packaging/io.github.codex-pet-companion.plist

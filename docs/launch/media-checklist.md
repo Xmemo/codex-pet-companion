@@ -33,5 +33,5 @@ The source launch does not require a GIF or screenshot. Capture only with a clea
 - [ ] Verify one custom pet and two built-in pets
 - [ ] Run complete tests, privacy scan, package scan, and ChatGPT.app integrity check
 - [ ] Confirm GitHub Actions is green
-- [ ] Create `v0.1.0`, upload the custom archive and `SHA256SUMS`
+- [ ] For a future release, create a new version tag; `.github/workflows/release.yml` builds the archive, attests its provenance, and publishes the archive plus `SHA256SUMS`
 - [ ] Make the repository public only after every gate above passes

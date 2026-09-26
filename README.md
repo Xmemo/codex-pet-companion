@@ -9,7 +9,9 @@
 
 A research-informed Pomodoro timer for macOS, inspired by Huberman Lab's discussion of ultradian rhythms. It lives beside your Codex pet during focus and turns that same pet into a prominent, calm break cue when it is time to pause.
 
-## See Pet Pomodoro in Action
+## Product Visuals
+
+These AI-generated/composited product illustrations are for presentation; they are not unaltered screen recordings or proof of a particular runtime state.
 
 <p align="center">
   <img src="docs/images/pet-pomodoro-companion-panel.png" alt="Pet Pomodoro brings the timer and Codex pet together in one compact companion panel" width="100%">
@@ -72,14 +74,21 @@ Research also supports the mechanisms behind the product:
 
 ---
 
+## Privacy
+
+Pet Pomodoro stores goals and session history locally in `~/.codex/ultradian-rhythm`. It does not upload session data, run telemetry, or call an AI model. The companion may request the macOS permission labeled “Screen & System Audio Recording”: when window metadata alone cannot locate the pet, it captures the matching ChatGPT/Codex window's pixels in memory to find the pet's visual position. It does not capture audio. The image is used locally for positioning and is not saved or transmitted by the app. Denying permission disables that visual-matching path; it does not send screen content elsewhere.
+
+Review exported history before sharing it: goals and timing can reveal private work context. See [Local Data and User-Directed AI Analysis](docs/data-and-ai-analysis.md).
+
 ## Scope And Limits
 
-- **No Signed Binaries**: The source code is compiled locally during installation using Xcode Command Line Tools. We do not distribute pre-compiled, code-signed binaries.
+- **Source-only installation**: The source code is compiled locally during installation using Xcode Command Line Tools. We do not distribute pre-compiled, Apple-signed binaries. Release archives receive provenance attestations; these are not Apple code signatures or notarization.
 - **Display Differences**: Layout may vary with monitor arrangement, notch configuration, and macOS Spaces.
 - **No Cross-Platform Support**: Built natively for macOS using Swift, AppKit, and LaunchAgents. Windows, Linux, and mobile OSs are not supported.
 - **No Built-in AI, Review UI, or Dashboard**: The timer stores local session records and exposes CLI history, but the simplified v0.1.0 panel does not collect reviews. It does not upload data, call an AI model, score productivity, or provide a hosted analytics dashboard.
 - **Not Medical Advice**: This is a focus timer, not a medical device or a treatment for attention, sleep, or health conditions.
 - **No Official Affiliation**: Unaffiliated with OpenAI or any official project.
+- **Screen Access**: Visual pet tracking can request macOS screen-capture permission for the ChatGPT/Codex window; see the [privacy details](docs/data-and-ai-analysis.md).
 
 ---
 
@@ -89,6 +98,7 @@ Research also supports the mechanisms behind the product:
 - **Python 3.11 or newer** available as an executable Python.
 - **Node.js**. The installer first tries bundled Node from Codex or ChatGPT, then falls back to `node` on `PATH`.
 - **Xcode Command Line Tools** with `xcrun swiftc` available for the Swift renderer build.
+- **GitHub CLI (`gh`)** to verify signed release provenance before installation.
 
 ---
 
@@ -130,11 +140,21 @@ Preview loads pets from the normal Codex pet directory. The bundled `examples/ex
 
 To install via Codex, copy the following instruction and paste it directly into your Codex agent:
 
-> Install Pet Pomodoro using the contract in [INSTALL_WITH_CODEX.md](INSTALL_WITH_CODEX.md) from the repository at https://github.com/Xmemo/codex-pet-companion, running `scripts/bootstrap.sh` pinned at version `v0.1.0` with strict SHA256 checksum verification, ensuring no modification to `ChatGPT.app` or `Codex.app`, and reporting both `ultradian` and `codex-pet-companion` status reports.
+> Install Pet Pomodoro using the contract in [INSTALL_WITH_CODEX.md](INSTALL_WITH_CODEX.md) from https://github.com/Xmemo/codex-pet-pomodoro. Verify the release archive's GitHub artifact attestation with the `gh` CLI, pinned repository, release workflow, and version tag before executing the installer. Also compare the archive with `SHA256SUMS`; do not modify `ChatGPT.app` or `Codex.app`. Report the `ultradian` and `codex-pet-companion` status checks.
 
 *Note: Codex may request network and filesystem approval permissions during the installation process.*
 
-The Release archive and `SHA256SUMS` come from the same publisher. Their comparison detects mismatches, not a compromised publisher; review the repository and release before installing.
+The installer verifies a Sigstore-backed GitHub artifact attestation for the archive, bound to this repository, the release workflow, and the version tag. SHA256 detects archive/checksum mismatch; attestation verifies workflow provenance, not that source code is harmless. The existing `v0.1.0` release predates this check and is not attested; use a later release produced by the attested workflow. This still trusts the repository maintainers and GitHub Actions configuration.
+
+### Install from the Codex CLI
+
+Run this in Terminal to open an interactive Codex session with the installation request:
+
+```bash
+codex 'Read https://github.com/Xmemo/codex-pet-pomodoro/blob/main/INSTALL_WITH_CODEX.md and follow its installation contract. Install only from a release newer than v0.1.0 whose archive passes both SHA256 and GitHub attestation verification for this repository, release workflow, and exact tag. If no such release exists, stop. Preserve normal approval prompts; never use sudo or bypass approvals.'
+```
+
+Codex will ask before actions that need approval. The current `v0.1.0` release is not attested, so the CLI instruction must stop until a later verified release is published.
 
 ---
 

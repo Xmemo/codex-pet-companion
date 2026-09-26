@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Pinned default stable version
-DEFAULT_VERSION="v0.1.0"
+DEFAULT_VERSION="v0.1.1"
 VERSION="${1:-$DEFAULT_VERSION}"
 
 # Validate version format vMAJOR.MINOR.PATCH
@@ -54,6 +54,7 @@ if [ "${CODEX_BOOTSTRAP_TEST:-0}" = "1" ]; then
     validate_override "${CURL_BIN:-}" "CURL_BIN"
     validate_override "${TAR_BIN:-}" "TAR_BIN"
     validate_override "${SHASUM_BIN:-}" "SHASUM_BIN"
+    validate_override "${GH_BIN:-}" "GH_BIN"
     validate_override "${CODEX_TEST_ULTRADIAN_BIN:-}" "CODEX_TEST_ULTRADIAN_BIN"
     validate_override "${CODEX_TEST_COMPANION_BIN:-}" "CODEX_TEST_COMPANION_BIN"
 
@@ -61,12 +62,14 @@ if [ "${CODEX_BOOTSTRAP_TEST:-0}" = "1" ]; then
     TAR_BIN="${TAR_BIN:-/usr/bin/tar}"
     ULTRADIAN_BIN="${CODEX_TEST_ULTRADIAN_BIN:-$HOME/.local/bin/ultradian}"
     COMPANION_BIN="${CODEX_TEST_COMPANION_BIN:-$HOME/.local/bin/codex-pet-companion}"
+    GH_BIN="${GH_BIN:-$(command -v gh || true)}"
 else
     # Production mode: No overrides allowed, enforce strict URLs and paths
-    URL_BASE="https://github.com/Xmemo/codex-pet-companion/releases/download/$VERSION"
+    URL_BASE="https://github.com/Xmemo/codex-pet-pomodoro/releases/download/$VERSION"
     CURL_BIN="/usr/bin/curl"
     TAR_BIN="/usr/bin/tar"
     SHASUM_BIN="/usr/bin/shasum"
+    GH_BIN="$(command -v gh || true)"
     ULTRADIAN_BIN="$HOME/.local/bin/ultradian"
     COMPANION_BIN="$HOME/.local/bin/codex-pet-companion"
 fi
@@ -162,7 +165,20 @@ if [ "$actual_hash" != "$expected_hash" ]; then
     exit 1
 fi
 
-# 4. Verify tarball entries (Safe layout validation)
+# 4. Authenticate release provenance before inspecting or executing its contents.
+if [ -z "${GH_BIN:-}" ] || [ ! -x "$GH_BIN" ]; then
+    echo "Error: GitHub CLI (gh) is required to verify the signed release attestation." >&2
+    exit 1
+fi
+if ! "$GH_BIN" attestation verify "$TEMP_DIR/$TARBALL_NAME" \
+    --repo Xmemo/codex-pet-pomodoro \
+    --signer-workflow Xmemo/codex-pet-pomodoro/.github/workflows/release.yml \
+    --source-ref "refs/tags/$VERSION"; then
+    echo "Error: Release provenance verification failed; refusing to install." >&2
+    exit 1
+fi
+
+# 5. Verify tarball entries (Safe layout validation)
 # All entries must reside inside pet-pomodoro-for-codex-$VERSION/
 if ! entries=$("$TAR_BIN" -tzf "$TEMP_DIR/$TARBALL_NAME" 2>/dev/null); then
     echo "Error: Failed to list tarball entries." >&2
@@ -197,7 +213,7 @@ while IFS= read -r line || [ -n "$line" ]; do
     fi
 done <<< "$entries_details"
 
-# 5. Extract and verify installer file
+# 6. Extract and verify installer file
 if ! "$TAR_BIN" -xzf "$TEMP_DIR/$TARBALL_NAME" -C "$TEMP_DIR"; then
     echo "Error: Failed to extract release archive." >&2
     exit 1
@@ -216,14 +232,14 @@ if [ -L "$installer_path" ]; then
     exit 1
 fi
 
-# 6. Invoke packaged installer
+# 7. Invoke packaged installer
 # Execute installer within the temp workspace
 if ! /bin/zsh "$installer_path"; then
     echo "Error: Package installation failed." >&2
     exit 1
 fi
 
-# 7. Health check verification
+# 8. Health check verification
 if ! "$ULTRADIAN_BIN" status --json >/dev/null; then
     echo "Error: Health check for 'ultradian' failed." >&2
     exit 1
