@@ -11,6 +11,8 @@
 
 ## 产品体验
 
+下列产品图为 AI 生成或合成的展示插图，不是未经修改的实机录屏，也不证明某个运行状态。
+
 <p align="center">
   <img src="docs/images/pet-pomodoro-companion-panel.png" alt="番茄钟与 Codex 电子宠物组合在同一个紧凑面板中" width="100%">
   <br><em>让计时器与电子宠物保持在一起，成为一个专注伙伴。</em>
@@ -70,6 +72,12 @@ Huberman Lab 的 *Focus Toolkit* 建议把专注段控制在约 90 分钟以内�
 
 `90/20` 仍是可选实验起点，不是生理处方。研究没有证明某个精确间隔适合所有人和任务，本软件本身也没有经过临床效果试验。完整证据、功能映射和声明范围见[科学依据与声明边界](docs/research/scientific-basis.zh-CN.md)。
 
+## 隐私
+
+目标和计时历史仅保存在本机 `~/.codex/ultradian-rhythm`。应用不上传会话数据、不运行遥测，也不会调用 AI 模型。宠物定位可能请求 macOS 名为“屏幕与系统音频录制”的权限：仅当窗口元数据不足以定位宠物时，才会在内存中捕获匹配的 ChatGPT/Codex 窗口像素用于计算宠物位置。应用不采集音频，也不会保存或传输该图像。拒绝权限会关闭这条视觉定位路径，不会把屏幕内容发送到其他地方。
+
+分享历史前请检查导出文件，目标文字和时间可能暴露工作内容。详见[本地数据与 AI 分析](docs/data-and-ai-analysis.md)。
+
 ---
 
 ## 范围与限制
@@ -80,6 +88,7 @@ Huberman Lab 的 *Focus Toolkit* 建议把专注段控制在约 90 分钟以内�
 - **无内置 AI、Review 界面或云端看板**：计时器会保存本地周期记录并提供 CLI 历史导出，但 v0.1.0 的精简面板不采集 Review。它不会上传数据、自动调用模型、评价生产力或提供托管分析面板。
 - **非医疗建议**：本项目是专注计时器，不是医疗器械，也不用于治疗注意力、睡眠或其他健康问题。
 - **无官方关联**：与 OpenAI 或任何官方项目无关。
+- **屏幕访问**：视觉宠物定位可能请求 macOS 屏幕录制权限；具体用途、处理方式和边界见[隐私说明](docs/data-and-ai-analysis.md)。
 
 ---
 
@@ -89,6 +98,7 @@ Huberman Lab 的 *Focus Toolkit* 建议把专注段控制在约 90 分钟以内�
 - **Python 3.11 或更高版本**（可用作可执行的 Python）。
 - **Node.js**。安装程序会首先尝试使用 Codex 或 ChatGPT 内置的 Node，如果不可用则退而使用 `PATH` 中的 `node`。
 - **Xcode Command Line Tools**（需提供 `xcrun swiftc` 以编译 Swift 渲染器）。
+- **GitHub CLI (`gh`)**（首次安装前用于验证发布来源证明）。
 
 ---
 
@@ -130,11 +140,21 @@ codex-pet-companion preview --pet example-pet --state rest
 
 如需通过 Codex 安装，请将以下单行指令复制并粘贴到您的 Codex 代理（Agent）中：
 
-> 根据 https://github.com/Xmemo/codex-pet-companion 仓库中的 [INSTALL_WITH_CODEX.md](INSTALL_WITH_CODEX.md) 契约安装 Pet Pomodoro，运行锁定在 `v0.1.0` 版本的 `scripts/bootstrap.sh` 并进行严格的 SHA256 校验，确保不修改 `ChatGPT.app` 或 `Codex.app`，并汇报 `ultradian` 和 `codex-pet-companion` 的状态报告。
+> 根据 https://github.com/Xmemo/codex-pet-pomodoro 仓库中的 [INSTALL_WITH_CODEX.md](INSTALL_WITH_CODEX.md) 契约安装 Pet Pomodoro。使用晚于 v0.1.0 且带有 attestation 的 Release；执行安装器前，使用 gh attestation verify 校验仓库 Xmemo/codex-pet-pomodoro、工作流 .github/workflows/release.yml 和准确的版本 tag，并校验 SHA256SUMS。不得修改 ChatGPT.app 或 Codex.app，并汇报 ultradian 与 codex-pet-companion 状态。
 
 *注意：在安装过程中，Codex 可能会向您请求网络和文件系统的访问权限审批。*
 
-Release 压缩包与 `SHA256SUMS` 由同一发布者提供；校验能发现文件不匹配，不能独立证明发布者没有被入侵。首次安装前仍应查看仓库和 Release 来源。
+安装器要求压缩包具有绑定到本仓库、指定发布工作流和版本 tag 的 Sigstore/GitHub artifact attestation。SHA256 用于发现文件不匹配；attestation 证明工作流来源，不代表代码绝对安全。v0.1.0 发布早于该验证机制，不能通过此校验；必须使用由新发布工作流生成的后续版本。此机制仍信任仓库维护者和 GitHub Actions 配置。
+
+### 从 Codex CLI 安装
+
+在终端运行以下命令，会以安装请求启动交互式 Codex 会话：
+
+```bash
+codex '阅读 https://github.com/Xmemo/codex-pet-pomodoro/blob/main/INSTALL_WITH_CODEX.md 并严格按安装契约执行。仅可安装 v0.1.0 之后、且压缩包同时通过 SHA256 与本仓库、发布工作流、精确 tag 的 GitHub attestation 验证的版本。若不存在符合条件的版本就停止。保留正常审批，不使用 sudo，也不绕过审批。'
+```
+
+Codex 会对需要审批的操作正常请求确认。当前 `v0.1.0` 没有 attestation，因此后续经过验证的 Release 发布前，这条 CLI 指令必须停止安装。
 
 ---
 

@@ -1,30 +1,38 @@
 # Codex One-Line Install Contract
 
-This is an agent-facing execution contract for AI agents (e.g., Codex) executing the one-line installation.
+This contract is for an AI agent executing the installation with the user's approval.
 
-## Prerequisites and Verification
-1. **Confirm Environment**: Confirm the operating system is macOS and that all prerequisites (Python 3.11+, Node.js, and Xcode Command Line Tools) are installed and available.
-2. **Preserve User Review**: Preserve normal approval reviews. Do NOT attempt to silently bypass user permissions, sandbox restrictions, or confirmation dialogs. Codex may request network/filesystem approvals.
-3. **Private Temporary Workspace**: Create a private, unique temporary directory for all download and staging activities. Clean this directory upon exit or failure.
-4. **Publisher Trust**: A checksum downloaded beside a release asset detects mismatches; it does not independently authenticate the publisher. Review the repository and release source before first installation.
+## Requirements and trust checks
 
-## Execution Workflow
-1. **Download Pinned Bootstrap**: Download `scripts/bootstrap.sh` *only* from the pinned `v0.1.0` tag over strict HTTPS:
-   `https://raw.githubusercontent.com/Xmemo/codex-pet-companion/v0.1.0/scripts/bootstrap.sh`
-2. **Run Pinned Bootstrap**: Execute the downloaded bootstrap script using `/bin/zsh` with the argument `v0.1.0`:
-   `/bin/zsh bootstrap.sh v0.1.0`
-3. **Report Status**: Confirm and report the status of both health checks:
+1. Confirm macOS, Python 3.11+, Node.js, Xcode Command Line Tools, and GitHub CLI (`gh`).
+2. Preserve normal approval prompts. Never bypass user permissions, sandbox restrictions, or confirmation dialogs.
+3. Download and stage files in a unique private temporary directory; remove it on success or failure.
+4. Use a release newer than `v0.1.0`. That release predates artifact attestations and is intentionally rejected by the current bootstrap.
+5. Before executing any package installer, the bootstrap checks the archive SHA256 and runs `gh attestation verify` requiring:
+   - repository: `Xmemo/codex-pet-pomodoro`
+   - signer workflow: `Xmemo/codex-pet-pomodoro/.github/workflows/release.yml`
+   - source ref: the exact `refs/tags/<version>` being installed
+
+The attestation authenticates GitHub Actions provenance for the artifact; it does not prove the code is vulnerability-free. Users still trust the repository maintainers, the release workflow, GitHub, and GitHub CLI. It is not an Apple code signature or notarization.
+
+## Execution workflow
+
+1. Download `scripts/bootstrap.sh` only from the exact version tag, over HTTPS:
+   `https://raw.githubusercontent.com/Xmemo/codex-pet-pomodoro/<version>/scripts/bootstrap.sh`
+2. Inspect the script and tag, then run `/bin/zsh bootstrap.sh <version>` with the same version.
+3. Confirm and report both health checks:
    - `ultradian status --json`
    - `codex-pet-companion status --json`
 
-## Safety Boundaries and Prohibitions
-- **No Main Branch Execution**: Never download or execute unpinned assets from the `main` branch.
-- **No Curl-Pipe-Shell**: Do not execute unverified payloads directly using `curl ... | sh` or similar pipes.
-- **No Privilege Escalation**: Do not request or execute commands with `sudo` or elevated privileges.
-- **No Sandbox/Approval Bypass**: Do not use flags or mechanisms designed to bypass user approval or OS sandbox restrictions.
-- **No Application Modification**: Do not modify ChatGPT.app, Codex.app, or any official application bundles/atlas files.
-- **No Unchecked Archive Execution**: The bootstrap script compares the versioned Release tarball (`pet-pomodoro-for-codex-v0.1.0.tar.gz`) with its `SHA256SUMS` before installer execution. This is an integrity check against mismatches, not an independent signature.
+## Safety boundaries
 
-## Rollback Behavior
-- If any stage of the verification or execution fails, the installation will halt safely.
-- Any rollback of the target installation state is managed internally by the packaged `scripts/install.sh`.
+- Never execute an unpinned script from the `main` branch.
+- Never use `curl | sh` or execute an unverified payload.
+- Never use `sudo` or elevated privileges.
+- Never bypass user approvals or OS security prompts.
+- Never modify `ChatGPT.app`, `Codex.app`, or official app bundles/atlas files.
+- If checksum or attestation verification fails, stop without extracting or running the installer.
+
+## Rollback
+
+If verification fails, installation stops before payload execution. Failures after execution are handled by the packaged installer's rollback behavior.

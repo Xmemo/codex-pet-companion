@@ -1,5 +1,7 @@
 # GitHub Release: v0.1.0
 
+> Historical release notes. `v0.1.0` predates artifact attestations and is not accepted by the current bootstrap verifier. Do not treat its checksum as publisher authentication. Use a later release and install through the version-pinned bootstrap contract.
+
 ## Pet Pomodoro v0.1.0
 
 Pet Pomodoro is a science-informed Pomodoro timer for Codex on macOS. Inspired by Huberman Lab's ultradian-rhythm framing, it pairs bounded focus with deliberate recovery. The timer stays with your Codex pet; at the break boundary, that pet expands into a calm visual pause cue.
@@ -24,7 +26,7 @@ cd pet-pomodoro-for-codex-v0.1.0
 
 Requirements: macOS, Python 3.11+, Node.js, and Xcode Command Line Tools.
 
-Verify the release archive against `SHA256SUMS` before installation.
+For this historical release, the checksum detects accidental or malicious mismatch only and does not authenticate the publisher. Future releases must be installed through the bootstrap contract, which verifies both SHA256 and the GitHub artifact attestation.
 
 ### Research Position
 

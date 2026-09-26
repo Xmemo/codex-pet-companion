@@ -91,12 +91,21 @@ process.exit(result.status);
   fs.writeFileSync(fakeTarPath, tarCode);
   fs.chmodSync(fakeTarPath, 0o755);
 
+  const fakeGhPath = path.join(binDir, 'fake-gh');
+  fs.writeFileSync(fakeGhPath, `#!/usr/bin/env node
+const args = process.argv.slice(2);
+if (args[0] !== 'attestation' || args[1] !== 'verify' || !args.includes('--repo') || !args.includes('Xmemo/codex-pet-pomodoro') || !args.includes('--signer-workflow') || !args.includes('Xmemo/codex-pet-pomodoro/.github/workflows/release.yml') || !args.includes('--source-ref') || !args.includes('refs/tags/' + process.env.TEST_RELEASE_VERSION)) process.exit(2);
+process.exit(process.env.TEST_ATTESTATION_FAIL === '1' ? 1 : 0);
+`);
+  fs.chmodSync(fakeGhPath, 0o755);
+
   return {
     rootDir,
     fakeHome,
     fixturesDir,
     fakeCurlPath,
-    fakeTarPath
+    fakeTarPath,
+    fakeGhPath
   };
 }
 
@@ -108,7 +117,7 @@ function cleanTestEnv(env) {
 
 // Reusable test helper
 function runBootstrapTest({
-  version = 'v0.1.0',
+  version = 'v0.1.1',
   versionArg = null,
   tarballFiles = null, // array of { name, content, type: 'file'|'symlink', target, outsideRoot }
   customChecksumContent = null,
@@ -189,8 +198,10 @@ chmod +x "$HOME/.local/bin/codex-pet-companion"
     HOME: env.fakeHome,
     CURL_BIN: env.fakeCurlPath,
     TAR_BIN: env.fakeTarPath,
+    GH_BIN: env.fakeGhPath,
+    TEST_RELEASE_VERSION: versionArg || version,
     TEST_FIXTURES_DIR: env.fixturesDir,
-    CODEX_RELEASE_URL_BASE: `http://fakegithub.com/Xmemo/codex-pet-companion/releases/download/${versionArg || version}`,
+    CODEX_RELEASE_URL_BASE: `http://fakegithub.com/Xmemo/codex-pet-pomodoro/releases/download/${versionArg || version}`,
     CODEX_BOOTSTRAP_TEST: '1',
     ...testEnvOverrides
   };
@@ -217,12 +228,26 @@ chmod +x "$HOME/.local/bin/codex-pet-companion"
 }
 
 // Required Test Cases
-test('bootstrap succeeds with v0.1.0, executes installer, and runs health checks', () => {
+test('bootstrap succeeds with the default attested release version, executes installer, and runs health checks', () => {
   runBootstrapTest({ expectSuccess: true });
 });
 
 test('bootstrap succeeds with valid version override, executes installer, and runs health checks', () => {
   runBootstrapTest({ version: 'v1.2.3', versionArg: 'v1.2.3', expectSuccess: true });
+});
+
+test('bootstrap refuses to execute installer when release attestation verification fails', () => {
+  runBootstrapTest({
+    testEnvOverrides: { TEST_ATTESTATION_FAIL: '1' },
+    expectSuccess: false
+  });
+});
+
+test('bootstrap refuses to execute installer when GitHub CLI is unavailable', () => {
+  runBootstrapTest({
+    testEnvOverrides: { GH_BIN: '/nonexistent/gh' },
+    expectSuccess: false
+  });
 });
 
 test('bootstrap fails and does not execute installer when checksum does not match', () => {
@@ -304,7 +329,7 @@ test('bootstrap rejects invalid non-absolute executable override in test mode', 
       ...process.env,
       HOME: env.fakeHome,
       CURL_BIN: 'relative-curl',
-      CODEX_RELEASE_URL_BASE: 'http://fakegithub.com/Xmemo/codex-pet-companion/releases/download/v0.1.0',
+      CODEX_RELEASE_URL_BASE: 'http://fakegithub.com/Xmemo/codex-pet-pomodoro/releases/download/v0.1.0',
       CODEX_BOOTSTRAP_TEST: '1'
     },
     encoding: 'utf8'
@@ -322,7 +347,7 @@ test('bootstrap rejects command-plus-arguments string override in test mode', ()
       ...process.env,
       HOME: env.fakeHome,
       CURL_BIN: '/usr/bin/curl --silent',
-      CODEX_RELEASE_URL_BASE: 'http://fakegithub.com/Xmemo/codex-pet-companion/releases/download/v0.1.0',
+      CODEX_RELEASE_URL_BASE: 'http://fakegithub.com/Xmemo/codex-pet-pomodoro/releases/download/v0.1.0',
       CODEX_BOOTSTRAP_TEST: '1'
     },
     encoding: 'utf8'

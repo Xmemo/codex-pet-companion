@@ -6,7 +6,7 @@ I built Pet Pomodoro for Codex: a science-informed timer inspired by Huberman La
 
 25/50/90-minute presets. Fullscreen pet breaks. No cloud account.
 
-GitHub: https://github.com/Xmemo/codex-pet-companion
+GitHub: https://github.com/Xmemo/codex-pet-pomodoro
 
 ## Post 2
 
@@ -47,4 +47,4 @@ Current boundaries:
 - no telemetry or network service
 - no bundled or extracted Codex pet assets
 
-Release: https://github.com/Xmemo/codex-pet-companion/releases/tag/v0.1.0
+Release: https://github.com/Xmemo/codex-pet-pomodoro/releases/tag/v0.1.0
